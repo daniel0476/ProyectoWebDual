@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/barbershop.jpg" type="image/jpeg">
+
+    <title>Peluquería Barbers</title>
+    
+
+    <style>
+         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body{
+            background-color: #f8f8f8;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: #222;
+            color: white;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            transition: 0.5s;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+            position: relative;
+        }
+
+        nav ul li:hover {
+            border-bottom: 1px white solid;
+            transition: 0.1s;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .imagen {
+            width: 100px;
+            height: auto;
+            border-radius: 6%;
+        }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .menu-toggle div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            border-radius: 5px;
+        }
+
+        nav ul li ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #333;
+            width: 200px;
+            list-style: none;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        nav ul li:hover > ul {
+            display: block;
+        }
+        nav ul li a.btn-cita:hover {
+            border-bottom: none;
+        }
+        
+
+        @media (max-width: 500px) {
+            nav {
+                display: none;
+                position: absolute;
+                top: 60px;
+                right: 0;
+                background-color: #333;
+                width: 300px;
+                padding: 20px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            }
+
+            nav.active {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
+        }
+
+        .imagen2 {
+            width: 100%;
+            height: 550px;
+            object-fit: cover;
+            display: block;
+            padding-bottom: 20px;
+        }
+
+        section {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: space-between;
+            padding: 50px 30px;
+            background-color: #f8f8f8;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        section h2 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        section p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+            width: 100%;
+            padding-right: 40px;
+        }
+
+        .contenido {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center; 
+    gap: 40px; 
+    width: 80%;
+    margin: 0 auto;
+}
+.contenido .textoBarberia h2 {
+    font-size: 40px; 
+    color: #333; 
+    margin-bottom: 40px;
+}
+
+
+.contenido .textoBarberia {
+    font-size: 22px; 
+    color: #666;
+    margin-bottom: 30px;
+
+}
+.contenido img {
+    width: 700px; 
+    height: auto;
+    border-radius: 2%;
+}
+
+
+@media (max-width: 768px) {
+    .contenido {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 90%;
+    }
+
+    .contenido .textoBarberia {
+        order: -1;
+        text-align: center;
+    }
+
+    .contenido img {
+        order: 1;
+        max-width: 100%;
+    }
+}
+
+
+        footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 20px 30px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer p {
+            font-size: 16px;
+            color: #bbb;
+        }
+
+        footer a {
+            color: #e67e22;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+       
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img class="imagen" src="img/barbershop.jpg" alt="Logo de la Peluquería">
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+
+        <nav id="menu">
+            <ul>
+                <li><a href="/index.html">Inicio</a></li>
+                <li><a href="/pagina2.html">Equipo</a></li>
+                <li><a href="/pagina3.html">Servicios</a></li>
+                <li><a href="/pagina4.html">Contacto</a></li>
+
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <img class="imagen2" src="img/barberia-vigo.jpg" alt="Peluquería Elegante">
+        <section id="inicio">
+            <div class="contenido">
+                <div class="textoBarberia">
+                    <h2>Bienvenidos a Barbers</h2>
+                    <p>
+                        En Peluquería Barbers, creemos que un buen corte de cabello no solo cambia tu apariencia, 
+                        sino que también eleva tu confianza y te ayuda a sentirte como mejor te ves. Nuestra barbería 
+                        es un lugar donde la tradición se encuentra con las últimas tendencias, ofreciendo una experiencia
+                        única de estilo y cuidado personal.
+                    </p>
+                    <p>
+                        Ven y disfruta de un servicio excepcional. ¡Haz tu cita y experimenta lo mejor del cuidado masculino en un solo lugar!
+                    </p>
+                </div>
+                <div>
+                <img class="imagen3" src="img/inicio/barberia.jpg" alt="Imagen de Barbería">
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Esta es una empresa ficticia y este sitio web es un proyecto de prácticas.</p>
+        <p>© 2025 Peluquería Barbers. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            menu.classList.toggle('active');
+        }
+    </script>
+
+</body>
+</html>
+
+
