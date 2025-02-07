@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="img/barbershop.jpg" type="image/jpeg">
-
     <title>Equipo - Peluquería Barbers</title>
     
     <style>
@@ -12,10 +11,23 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: Georgia, 'Times New Roman', Times, serif;
         }
-        body{
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        body {
+            padding-top: 70px;
             background-color: #f8f8f8;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            opacity: 0;
+            animation: fadeIn 1.5s forwards; /* Animación de entrada */
         }
 
         header {
@@ -25,6 +37,12 @@
             padding: 15px 30px;
             background-color: #222;
             color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: top 0.3s ease-in-out;
         }
 
         nav ul {
@@ -48,6 +66,18 @@
             text-decoration: none;
             font-size: 18px;
         }
+
+        .imagen {
+            width: 100px;
+            height: auto;
+            border-radius: 6%;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .imagen:hover {
+            transform: scale(1.05); /* Animación al pasar sobre el logo */
+        }
+
         .menu-toggle {
             display: none;
             cursor: pointer;
@@ -91,19 +121,28 @@
                 margin: 10px 0;
             }
         }
-        
-        .imagen {
-            width: 100px;
-            height: auto;
-            border-radius: 6%;
-        }
 
+        /* Efecto Parallax */
         .imagen2 {
             width: 100%;
             height: 550px;
             object-fit: cover;
             display: block;
             padding-bottom: 20px;
+            transition: all 0.5s ease;
+        }
+
+        .imagen2:hover {
+            transform: scale(1.05);
+        }
+
+        .Parallax {
+            background-image: url('img/barberia-vigo.jpg');
+            height: 550px;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
 
         section {
@@ -118,19 +157,25 @@
         }
 
         section h2 {
-    font-size: 32px;
-    color: #333;
-    margin-bottom: 20px;
-    width: 100%;
-    text-align: center; 
-}
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: thin gray solid;
+            padding-bottom: 8px;
+            display: inline-block;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeIn 2s forwards;
+        }
 
         section p {
             font-size: 18px;
             color: #666;
             margin-bottom: 30px;
             width: 100%;
-            text-align: center; 
+            text-align: center;
+            animation: fadeIn 2s forwards;
         }
 
         .team-container {
@@ -139,6 +184,7 @@
             gap: 30px;
             flex-wrap: wrap;
             width: 100%;
+            animation: fadeIn 2s forwards;
         }
 
         .team-member {
@@ -148,6 +194,11 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             text-align: center;
             width: 250px;
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: scale(1.05);
         }
 
         .team-member img {
@@ -155,6 +206,11 @@
             border-radius: 50%;
             max-width: 150px;
             margin-bottom: 15px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .team-member img:hover {
+            transform: scale(1.1);
         }
 
         .team-member h3 {
@@ -206,7 +262,9 @@
 <body>
 
     <header>
-        <img class="imagen" src="img/barbershop.jpg" alt="Logo de la Peluquería">
+        <a href="portadah.html">
+            <img class="imagen" src="img/barbershop.jpg" alt="Logo de la Peluquería">
+        </a>
         <div class="menu-toggle" onclick="toggleMenu()">
             <div></div>
             <div></div>
@@ -224,7 +282,7 @@
     </header>
 
     <main>
-        <img class="imagen2" src="img/barberia-vigo.jpg" alt="Peluquería Elegante">
+        <div class="Parallax"></div>
         <section>
             <h2>Conoce a nuestro equipo</h2>
             <p>
@@ -262,6 +320,27 @@
     </footer>
 
     <script>
+        let lastScrollTop = 0;
+        let isScrolling;
+        const header = document.querySelector('header');
+
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (scrollTop > lastScrollTop) {
+                header.style.top = '-100px'; // Ajusta según el tamaño de tu cabecera
+            } else {
+                header.style.top = '0';
+            }
+
+            clearTimeout(isScrolling);
+            isScrolling = setTimeout(function() {
+                header.style.top = '0';
+            }, 1000);
+
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        });
+
         function toggleMenu() {
             const menu = document.getElementById('menu');
             menu.classList.toggle('active');

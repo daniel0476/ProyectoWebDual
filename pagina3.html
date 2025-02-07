@@ -11,7 +11,11 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family:"Poppins", sans-serif;
+            font-family:Georgia, 'Times New Roman', Times, serif;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
         }
         header {
             display: flex;
@@ -25,6 +29,7 @@
             left: 0;
             width: 100%;
             z-index: 1000;
+            transition: top 0.3s ease-in-out;
         }
 
         body {
@@ -58,6 +63,11 @@
             width: 100px;
             height: auto;
             border-radius: 6%;
+            transition: transform 0.5s ease;
+        }
+        
+        .imagen:hover {
+            transform: scale(1.1);
         }
 
         .menu-toggle {
@@ -105,12 +115,26 @@
         }
 
     
-            .imagen2 {
+        .imagen2 {
             width: 100%;
             height: 550px;
             object-fit: cover;
             display: block;
             padding-bottom: 20px;
+            transition: all 0.5s ease;
+        }
+
+        .imagen2:hover {
+            transform: scale(1.05);
+        }
+
+        .parallax {
+            background-image: url('img/barberia-vigo.jpg');
+            height: 550px;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
 
         section {
@@ -224,7 +248,15 @@
                 margin-right: 0;
             }
         }
-
+        h2{
+            border-bottom:thin gray solid;
+            padding-bottom: 8px;
+            min-width: 450px;
+            width:  auto;
+            display:inline-block;
+           
+        }
+    
         footer {
             background-color: #222;
             color: white;
@@ -234,11 +266,18 @@
             bottom: 0;
             width: 100%;
         }
+        
+        footer p {
+            font-size: 16px;
+            color: #bbb;
+        }
     </style>
 </head>
 <body>
     <header>
-        <img class="imagen" src="img/barbershop.jpg" alt="Logo de la Peluquería">
+        <a href="portadah.html">
+            <img class="imagen" src="img/barbershop.jpg" alt="Logo de la Peluquería">
+        </a>
         <div class="menu-toggle" onclick="toggleMenu()">
             <div></div>
             <div></div>
@@ -255,7 +294,7 @@
         </nav>
     </header>
     <main>
-        <img class="imagen2" src="img/barberia-vigo.jpg" alt="Servicios de Peluquería">
+        <div class="parallax"></div>
         <section>
             <h2>Nuestros Servicios</h2>
             <p>Ofrecemos una variedad de servicios para que luzcas siempre impecable. Desde cortes clásicos hasta las últimas tendencias.</p>
@@ -301,7 +340,7 @@
         <div class="comentario">
             <img src="img/clientes/Laura.png" alt="Cliente 2">
             <div class="texto">
-                <p>"Me encantó el ambiente y la calidad del corte. La barbería tiene un estilo increíble y los barberos son unos verdaderos artistas. Salí sintiéndome renovado y con un look espectacular. ¡Muy recomendable!"</p>
+                <p>"Me encantó el ambiente y la calidad del corte. La barbería tiene un estilo increíble y los barberos son unos verdaderos artistas.Mi hijo salio renovado y con un look espectacular. ¡Muy recomendable!"</p>
                 <p class="cliente">- Laura R.</p>
             </div>
         </div>
@@ -315,17 +354,42 @@
         </div>
 
     </section>
+  
     </main>
 
     <footer>
         <p>Esta es una empresa ficticia y este sitio web es un proyecto de prácticas.</p>
         <p>© 2025 Peluquería Barbers. Todos los derechos reservados.</p>
     </footer>
+
     <script>
+        let lastScrollTop = 0;
+        let isScrolling;
+        const header = document.querySelector('header');
+
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (scrollTop > lastScrollTop) {
+                header.style.top = '-100px'; // Ajusta según el tamaño de tu cabecera
+            } else {
+                header.style.top = '0';
+            }
+
+            clearTimeout(isScrolling);
+            isScrolling = setTimeout(function() {
+                header.style.top = '0';
+            }, 1000);
+
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        });
+
         function toggleMenu() {
             const menu = document.getElementById('menu');
             menu.classList.toggle('active');
         }
     </script>
+
 </body>
 </html>
+

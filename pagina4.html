@@ -12,7 +12,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Poppins", sans-serif;
+            font-family:Georgia, 'Times New Roman', Times, serif;
         }
 
         header {
@@ -27,6 +27,7 @@
             left: 0;
             width: 100%;
             z-index: 1000;
+            transition: top 0.3s ease-in-out;
         }
 
         body {
@@ -63,6 +64,10 @@
             width: 100px;
             height: auto;
             border-radius: 6%;
+            transition: transform 0.5s ease;
+        }
+        .imagen:hover {
+            transform: scale(1.1);
         }
 
         .menu-toggle {
@@ -122,7 +127,7 @@
             background-color: #f8f8f8;
         }
 
-        /* Sección de Contacto y Más Información */
+  
         .h3mensaje{
             text-align: center;
             padding-left: 10px;
@@ -186,7 +191,6 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        /* Estilos para la sección de más información */
         .info-container {
             display: flex;
             justify-content: space-between;
@@ -195,13 +199,13 @@
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            flex-wrap: wrap; /* Permite que los elementos se acomoden en pantallas pequeñas */
+            flex-wrap: wrap; 
             margin-top: 20px;
         }
 
         .info-item {
             width: 45%;
-            margin-bottom: 20px; /* Añadido para mejorar el espaciado entre los elementos */
+            margin-bottom: 20px; 
         }
 
         .info-container h2 {
@@ -244,9 +248,15 @@
         }
 
         .h2mapa {
-            text-align: center;
+            font-size: 32px;
+    color: #333;
+    text-align: center;
+    border-bottom: 2px solid gray;  
+    padding-bottom: 5px;
+    display: inline-block;  
+    margin-left: 45%;
+    margin-right: 50%;
         }
-
         @media (max-width: 768px) {
             .container {
                 flex-direction: column;
@@ -266,9 +276,30 @@
             }
 
             .info-container {
-                flex-direction: column; /* Los elementos se apilan verticalmente en pantallas pequeñas */
-                text-align: center; /* Alineación central en pantallas pequeñas */
+                flex-direction: column; 
+                text-align: center;
             }
+        }
+        .imagen2 {
+            width: 100%;
+            height: 550px;
+            object-fit: cover;
+            display: block;
+            padding-bottom: 20px;
+            transition: all 0.5s ease;
+        }
+
+        .imagen2:hover {
+            transform: scale(1.05);
+        }
+
+        .parallax {
+            background-image: url('img/barberia-vigo.jpg');
+            height: 550px;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
 
         footer {
@@ -310,7 +341,9 @@
 <body>
 
 <header>
-    <img class="imagen" src="img/barbershop.jpg" alt="Logo de la Peluquería">
+    <a href="portadah.html">
+        <img class="imagen" src="img/barbershop.jpg" alt="Logo de la Peluquería">
+    </a>
     <div class="menu-toggle" onclick="toggleMenu()">
         <div></div>
         <div></div>
@@ -328,8 +361,7 @@
 </header>
 
 <main>
-    <img class="imagen2" src="img/barberia-vigo.jpg" alt="Peluquería Elegante">
-
+    <div class="parallax"></div>
     <!-- Envío de mensajes -->
     <section id="inicio">
         <div class="container">
@@ -397,6 +429,26 @@
     L.marker([36.811451, -2.569619]).addTo(mapa)
         .bindPopup('Paseo Marítimo de Aguadulce, Almería')
         .openPopup();
+        let lastScrollTop = 0;
+        let isScrolling;
+        const header = document.querySelector('header');
+
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (scrollTop > lastScrollTop) {
+                header.style.top = '-100px'; // Ajusta según el tamaño de tu cabecera
+            } else {
+                header.style.top = '0';
+            }
+
+            clearTimeout(isScrolling);
+            isScrolling = setTimeout(function() {
+                header.style.top = '0';
+            }, 1000);
+
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        });
 </script>
 
 </body>
