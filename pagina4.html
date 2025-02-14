@@ -1,20 +1,48 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+    <!-- Metadatos de la página -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="img/barbershop.jpg" type="image/jpeg">
+    <link rel="icon" href="img/LogoBarberia.png" type="image/jpeg">
 
+    <!-- Título de la página -->
     <title>Peluquería Barbers</title>
+
+    <!-- Enlace a la hoja de estilos de Leaflet para el mapa -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
     <style>
+        /* Estilos globales */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family:Georgia, 'Times New Roman', Times, serif;
+            font-family: Georgia, 'Times New Roman', Times, serif;
         }
 
+        /* Estilos del body */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            opacity: 0;
+            animation: fadeIn 1.5s forwards;
+        }
+
+        /* Animación fadeIn */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Estilos para el header */
         header {
             display: flex;
             justify-content: space-between;
@@ -24,52 +52,52 @@
             color: white;
             position: fixed;
             top: 0;
-            left: 0;
             width: 100%;
             z-index: 1000;
             transition: top 0.3s ease-in-out;
         }
 
-        body {
-            padding-top: 70px;
-            background-color: #f8f8f8;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
+        /* Estilos para la lista de navegación */
         nav ul {
             list-style: none;
             display: flex;
-            transition: 0.5s;
         }
 
         nav ul li {
             margin: 0 15px;
             position: relative;
+            transition: transform 0.3s ease-in-out;
         }
 
         nav ul li:hover {
-            border-bottom: 1px white solid;
-            transition: 0.1s;
+            transform: scale(1.1);
         }
 
+        /* Estilos para los enlaces de navegación */
         nav ul li a {
             color: white;
             text-decoration: none;
             font-size: 18px;
+            transition: color 0.3s ease;
         }
 
+        nav ul li a:hover {
+            color: #ffffff;
+        }
+
+        /* Estilos para la imagen en header */
         .imagen {
             width: 100px;
             height: auto;
             border-radius: 6%;
             transition: transform 0.5s ease;
         }
+
         .imagen:hover {
             transform: scale(1.1);
         }
 
+        /* Estilos para el botón de menú en móviles */
         .menu-toggle {
             display: none;
             cursor: pointer;
@@ -84,6 +112,24 @@
             border-radius: 5px;
         }
 
+        /* Estilos para submenús en navegación */
+        nav ul li ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #333;
+            width: 200px;
+            list-style: none;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        nav ul li:hover>ul {
+            display: block;
+        }
+
+        /* Estilos para pantallas pequeñas */
         @media (max-width: 500px) {
             nav {
                 display: none;
@@ -114,6 +160,7 @@
             }
         }
 
+        /* Estilos para la imagen principal */
         .imagen2 {
             width: 100%;
             height: 550px;
@@ -122,17 +169,20 @@
             padding-bottom: 20px;
         }
 
+        /* Estilos para las secciones */
         section {
             padding: 50px 30px;
             background-color: #f8f8f8;
         }
 
-  
-        .h3mensaje{
+        /* Estilos para el mensaje */
+        .h3mensaje {
             text-align: center;
             padding-left: 10px;
             padding-bottom: 10px;
         }
+
+        /* Estilos para el contenedor principal */
         .container {
             display: flex;
             justify-content: space-between;
@@ -145,10 +195,13 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .contact-form, .info-container {
+        /* Estilos para el formulario de contacto y la información */
+        .contact-form,
+        .info-container {
             width: 48%;
         }
 
+        /* Estilos para el formulario de contacto */
         .contact-form {
             background-color: #f8f8f8;
             padding: 20px;
@@ -157,6 +210,7 @@
             margin-top: 20px;
         }
 
+        /* Estilos para los campos del formulario */
         .contact-form input,
         .contact-form textarea {
             width: 100%;
@@ -167,6 +221,7 @@
             font-size: 16px;
         }
 
+        /* Estilos para el botón de envío */
         .contact-form button {
             background-color: #e67e22;
             color: white;
@@ -182,6 +237,7 @@
             background-color: #d35400;
         }
 
+        /* Estilos para el mapa */
         #map {
             height: 450px;
             width: 100%;
@@ -191,6 +247,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
+        /* Estilos para el contenedor de información */
         .info-container {
             display: flex;
             justify-content: space-between;
@@ -199,13 +256,14 @@
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            flex-wrap: wrap; 
+            flex-wrap: wrap;
             margin-top: 20px;
         }
 
+        /* Estilos para los elementos dentro de la información */
         .info-item {
             width: 45%;
-            margin-bottom: 20px; 
+            margin-bottom: 20px;
         }
 
         .info-container h2 {
@@ -215,6 +273,7 @@
             width: 100%;
         }
 
+        /* Estilos para los párrafos en los elementos de información */
         .info-item p {
             font-size: 18px;
             color: #555;
@@ -225,6 +284,7 @@
             color: #e67e22;
         }
 
+        /* Estilos para los enlaces en los elementos de información */
         .info-item a {
             color: black;
             text-decoration: none;
@@ -235,6 +295,7 @@
             color: #d35400;
         }
 
+        /* Estilos para los iconos de redes sociales */
         .social-media {
             display: flex;
             justify-content: center;
@@ -247,23 +308,27 @@
             height: auto;
         }
 
+        /* Estilos para el título del mapa */
         .h2mapa {
             font-size: 32px;
-    color: #333;
-    text-align: center;
-    border-bottom: 2px solid gray;  
-    padding-bottom: 5px;
-    display: inline-block;  
-    margin-left: 45%;
-    margin-right: 50%;
+            color: #333;
+            text-align: center;
+            border-bottom: 2px solid gray;
+            padding-bottom: 5px;
+            display: inline-block;
+            margin-left: 45%;
+            margin-right: 50%;
         }
+
+        /* Estilos para pantallas más pequeñas */
         @media (max-width: 768px) {
             .container {
                 flex-direction: column;
                 text-align: center;
             }
 
-            .contact-form, .info-container {
+            .contact-form,
+            .info-container {
                 width: 100%;
             }
 
@@ -276,10 +341,12 @@
             }
 
             .info-container {
-                flex-direction: column; 
+                flex-direction: column;
                 text-align: center;
             }
         }
+
+        /* Estilos para la imagen con efecto hover */
         .imagen2 {
             width: 100%;
             height: 550px;
@@ -293,8 +360,9 @@
             transform: scale(1.05);
         }
 
+        /* Estilos para el fondo parallax */
         .parallax {
-            background-image: url('img/barberia-vigo.jpg');
+            background-image: url('img/FotosGenerales/barberia-vigo.jpg');
             height: 550px;
             background-attachment: fixed;
             background-position: center;
@@ -302,6 +370,7 @@
             background-size: cover;
         }
 
+        /* Estilos para el footer */
         footer {
             background-color: #222;
             color: #f8f8f8;
@@ -312,11 +381,13 @@
             width: 100%;
         }
 
+        /* Estilos para el texto del footer */
         footer p {
             font-size: 16px;
             color: #bbb;
         }
 
+        /* Estilos para los enlaces del footer */
         footer a {
             color: #e67e22;
             text-decoration: none;
@@ -326,6 +397,7 @@
             text-decoration: underline;
         }
 
+        /* Estilos para el pie de página */
         body {
             display: flex;
             flex-direction: column;
@@ -336,120 +408,146 @@
             flex: 1;
         }
 
+        /* Estilos para el texto en el pie de página */
+        .PieDePagina {
+            color: #bbb;
+            text-decoration: none;
+        }
     </style>
 </head>
+
 <body>
 
-<header>
-    <a href="portadah.html">
-        <img class="imagen" src="img/barbershop.jpg" alt="Logo de la Peluquería">
-    </a>
-    <div class="menu-toggle" onclick="toggleMenu()">
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
-
-    <nav id="menu">
-        <ul>
-            <li><a href="index.html">Inicio</a></li>
-            <li><a href="pagina2.html">Equipo</a></li>
-            <li><a href="pagina3.html">Servicios</a></li>
-            <li><a href="pagina4.html">Contacto</a></li>
-        </ul>
-    </nav>
-</header>
-
-<main>
-    <div class="parallax"></div>
-    <!-- Envío de mensajes -->
-    <section id="inicio">
-        <div class="container">
-            <!-- Formulario de contacto -->
-            <div class="contact-form">
-                <h3  class="h3mensaje">Envíanos un mensaje</h3>
-                <form>
-                    <input type="email" name="email" placeholder="Tu correo electrónico" required>
-                    <input type="text" name="subject" placeholder="Asunto" required>
-                    <textarea name="message" rows="5" placeholder="Tu mensaje" required></textarea>
-                    <button type="submit">Enviar</button>
-                </form>
-            </div>
-
-            <!-- Más Información -->
-            <div class="info-container">
-                <h2 class="h3mensaje">Más Información</h2>
-                <div class="info-item">
-                    <p><strong><img src="img/Contacta/edificios.png" alt="" width="25px"> Nombre de la Empresa:</strong> Peluquería Barbers</p>
-                    <p><strong><img src="img/Contacta/ubicacion.png" alt="" width="25px"> Dirección:</strong> Paseo Marítimo, Aguadulce, Almería</p>
-                </div>
-                <div class="info-item">
-                    <p><strong><img src="img/Contacta/telefono.png" alt="" width="25px"> Teléfono:</strong> <a href="tel:+34600123456">+34 600 123 456</a></p>
-                    <p><strong><img src="img/Contacta/correo.png" alt="" width="25px"> Correo Electrónico:</strong> <a href="mailto:info@barbershop.com">info@barbershop.com</a></p>
-                </div>
-
-                <!-- Redes Sociales -->
-                <div class="social-media">
-                    <a href="https://instagram.com"><img src="img/Contacta/instagram.png" alt="Instagram" /></a>
-                    <a href="https://twitter.com"><img src="img/Contacta/gorjeo.png" alt="Twitter" /></a>
-                </div>
-            </div>
+    <header>
+        <!-- Enlace al logo que lleva a la página principal -->
+        <a href="portadah.html">
+            <img class="imagen" src="img/FotosGenerales/LogoBarberia.png" alt="Logo de la Peluquería">
+        </a>
+        <!-- Menú de hamburguesa para móviles -->
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
-    </section>
 
-    <!-- Mapa -->
-    <section id="mapa">
-        <h2 class="h2mapa">Ubicación</h2>
-        <div id="map"></div>
-    </section>
+        <!-- Menú de navegación -->
+        <nav id="menu">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="pagina2.html">Equipo</a></li>
+                <li><a href="pagina3.html">Servicios</a></li>
+                <li><a href="pagina4.html">Contacto</a></li>
+                <li><a href="AcercaDe.html">Acerca de</a></li>
+            </ul>
+        </nav>
+    </header>
 
-</main>
+    <main>
+        <!-- Imagen de parallax -->
+        <div class="parallax"></div>
 
-<footer>
-    <p>Esta es una empresa ficticia y este sitio web es un proyecto de prácticas.</p>
-    <p>© 2025 Peluquería Barbers. Todos los derechos reservados.</p>
-</footer>
+        <!-- Sección de contacto -->
+        <section id="inicio">
+            <div class="container">
+                <!-- Formulario de contacto -->
+                <div class="contact-form">
+                    <h3 class="h3mensaje">Envíanos un mensaje</h3>
+                    <form>
+                        <input type="email" name="email" placeholder="Tu correo electrónico" required>
+                        <input type="text" name="subject" placeholder="Asunto" required>
+                        <textarea name="message" rows="5" placeholder="Tu mensaje" required></textarea>
+                        <button type="submit">Enviar</button>
+                    </form>
+                </div>
 
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script>
-    function toggleMenu() {
-        const menu = document.getElementById('menu');
-        menu.classList.toggle('active');
-    }
+                <!-- Información adicional -->
+                <div class="info-container">
+                    <h2 class="h3mensaje">Más Información</h2>
+                    <div class="info-item">
+                        <p><strong><img src="img/Contacta/edificios.png" alt="" width="25px"> Nombre de la
+                                Empresa:</strong> Peluquería Barbers</p>
+                        <p><strong><img src="img/Contacta/ubicacion.png" alt="" width="25px"> Dirección:</strong> Paseo
+                            Marítimo, Aguadulce, Almería</p>
+                    </div>
+                    <div class="info-item">
+                        <p><strong><img src="img/Contacta/telefono.png" alt="" width="25px"> Teléfono:</strong><br><a
+                                href="tel:+34600123456">+34 600 123 456</a></p>
+                        <p><strong><img src="img/Contacta/correo.png" alt="" width="25px"> Correo Electrónico:</strong>
+                            <a href="danielcalvache057@gmail.com">info@barbershop.com</a></p>
+                    </div>
 
-    // Inicializar el mapa en el Paseo Marítimo de Aguadulce
-    var mapa = L.map('map').setView([36.811451, -2.569619], 16);
+                    <!-- Redes sociales -->
+                    <div class="social-media">
+                        <a href="https://instagram.com" target="_blank"><img src="img/Contacta/instagram.png"
+                                alt="Instagram" /></a>
+                        <a href="https://twitter.com" target="_blank"><img src="img/Contacta/gorjeo.png"
+                                alt="Twitter" /></a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    // Agregar el mapa de OpenStreetMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(mapa);
+        <!-- Sección de mapa -->
+        <section id="mapa">
+            <h2 class="h2mapa">Ubicación</h2>
+            <div id="map"></div>
+        </section>
 
-    // Agregar un marcador en el Paseo Marítimo
-    L.marker([36.811451, -2.569619]).addTo(mapa)
-        .bindPopup('Paseo Marítimo de Aguadulce, Almería')
-        .openPopup();
+    </main>
+
+    <!-- Pie de página -->
+    <footer>
+        <p>
+            <a href="AcercaDe.html" class="PieDePagina">Esta es una empresa ficticia y este sitio web es un proyecto de
+                prácticas.<br> © 2025 Peluquería Barbers. Todos los derechos reservados.</a>
+        </p>
+    </footer>
+
+    <!-- Script de Leaflet para el mapa -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Función para alternar la visibilidad del menú en dispositivos móviles
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            menu.classList.toggle('active');
+        }
+
+        // Inicialización del mapa con Leaflet en la ubicación de Aguadulce
+        var mapa = L.map('map').setView([36.811451, -2.569619], 16);
+
+        // Agregar capa de mapa de OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(mapa);
+
+        // Agregar marcador en la ubicación de la peluquería
+        L.marker([36.811451, -2.569619]).addTo(mapa)
+            .bindPopup('Paseo Marítimo de Aguadulce, Almería')
+            .openPopup();
+
+        // Función para ocultar el header al hacer scroll hacia abajo y mostrarlo al subir
         let lastScrollTop = 0;
         let isScrolling;
         const header = document.querySelector('header');
-
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', function () {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
             if (scrollTop > lastScrollTop) {
-                header.style.top = '-100px'; // Ajusta según el tamaño de tu cabecera
+                header.style.top = '-100px';
             } else {
                 header.style.top = '0';
             }
 
             clearTimeout(isScrolling);
-            isScrolling = setTimeout(function() {
+            isScrolling = setTimeout(function () {
                 header.style.top = '0';
             }, 1000);
 
             lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
         });
-</script>
+    </script>
 
 </body>
+
 </html>
