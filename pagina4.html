@@ -13,12 +13,23 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
     <style>
+                /*Fuentes de letras exportadas*/
+@font-face {
+  font-family: 'Maxlock';
+  src: url('maxlock/Maxlock.otf') format('truetype'),
+       url('maxlock/Maxlock.otf') format('opentype');
+}
+@font-face {
+  font-family: 'Blenda-script';
+  src: url('blenda_script/Blenda\ Script.otf') format('truetype'),
+       url('blenda_script/Blenda\ Script.otf') format('opentype');
+}
         /* Estilos globales */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-family: 'Blenda-script', sans-serif;
         }
 
         /* Estilos del body */
@@ -78,10 +89,24 @@
             text-decoration: none;
             font-size: 18px;
             transition: color 0.3s ease;
+            font-family: 'Maxlock', sans-serif;
         }
 
         nav ul li a:hover {
             color: #ffffff;
+        }
+                        /*vista horizontal*/
+                        @media (orientation: landscape)  and (max-width: 760px){
+            header{
+                height: 35px;
+            }
+            
+        }
+        @media (orientation: landscape)  and (min-width: 1024px){
+            header{
+                height: 120px;
+            }
+            
         }
 
         /* Estilos para la imagen en header */
@@ -179,6 +204,7 @@
             text-align: center;
             padding-left: 10px;
             padding-bottom: 10px;
+            font-family: 'Maxlock', sans-serif;
         }
 
         /* Estilos para el contenedor principal */
@@ -270,6 +296,7 @@
             color: #333;
             margin-bottom: 20px;
             width: 100%;
+            font-family: 'Maxlock', sans-serif;
         }
 
         /* Estilos para los párrafos en los elementos de información */
@@ -317,6 +344,7 @@
             display: inline-block;
             margin-left: 45%;
             margin-right: 50%;
+            font-family: 'Maxlock', sans-serif;
         }
 
         /* Estilos para pantallas más pequeñas */

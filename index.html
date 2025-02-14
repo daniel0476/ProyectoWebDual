@@ -6,12 +6,24 @@
     <link rel="icon" href="img/FotosGenerales/LogoBarberia.png" type="image/jpeg"> <!-- Ícono del sitio -->
     <title>Peluquería Barbers</title>
     <style>
+        /*Fuentes de letras exportadas*/
+@font-face {
+  font-family: 'Maxlock';
+  src: url('maxlock/Maxlock.otf') format('truetype'),
+       url('maxlock/Maxlock.otf') format('opentype');
+}
+@font-face {
+  font-family: 'Blenda-script';
+  src: url('blenda_script/Blenda\ Script.otf') format('truetype'),
+       url('blenda_script/Blenda\ Script.otf') format('opentype');
+}
+
         /* Estilos generales */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family:Georgia, 'Times New Roman', Times, serif;
+            font-family: 'Blenda-script', sans-serif;
         }
 
         /* Efecto de fade-in al cargar la página */
@@ -43,6 +55,7 @@
             width: 100%;
             z-index: 1000;
             transition: top 0.3s ease-in-out;
+            
         }
 
         /* Navegación la cabecera */
@@ -66,6 +79,8 @@
             text-decoration: none;
             font-size: 18px;
             transition: color 0.3s ease;
+            font-family: 'Maxlock', sans-serif;
+            
         }
 
         nav ul li a:hover {
@@ -82,6 +97,20 @@
 
         .imagen:hover {
             transform: scale(1.1);
+        }
+
+        /*vista horizontal*/
+        @media (orientation: landscape)  and (max-width: 760px){
+            header{
+                height: 35px;
+            }
+            
+        }
+        @media (orientation: landscape)  and (min-width: 1024px){
+            header{
+                height: 120px;
+            }
+            
         }
 
         /* Menú responsive */
@@ -182,10 +211,13 @@
         }
 
         section h2 {
-            font-size: 32px;
+            font-size: 35px;
             color: #333;
             margin-bottom: 20px;
             width: 100%;
+            font-family: 'Maxlock', sans-serif;
+           
+
         }
 
         section p {
@@ -193,6 +225,7 @@
             color: #666;
             margin-bottom: 30px;
             width: 100%;
+            text-align: justify;
         }
 
         .contenido {

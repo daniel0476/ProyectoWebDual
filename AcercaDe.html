@@ -8,12 +8,23 @@
     <title>Peluquería Barbers</title> 
     
     <style>
+                /*Fuentes de letras exportadas*/
+@font-face {
+  font-family: 'Maxlock';
+  src: url('maxlock/Maxlock.otf') format('truetype'),
+       url('maxlock/Maxlock.otf') format('opentype');
+}
+@font-face {
+  font-family: 'Blenda-script';
+  src: url('blenda_script/Blenda\ Script.otf') format('truetype'),
+       url('blenda_script/Blenda\ Script.otf') format('opentype');
+}
         /* Estilos generales y reseteo */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-family: 'Blenda-script', sans-serif;
         }
 
         /* Animación de aparición */
@@ -73,6 +84,7 @@
             text-decoration: none; 
             font-size: 18px;
             transition: color 0.3s ease;
+            font-family: 'Maxlock', sans-serif;
         }
 
         nav ul li a:hover {
@@ -89,6 +101,19 @@
 
         .imagen:hover {
             transform: scale(1.1); 
+        }
+                        /*vista horizontal*/
+                        @media (orientation: landscape)  and (max-width: 760px){
+            header{
+                height: 35px;
+            }
+            
+        }
+        @media (orientation: landscape)  and (min-width: 1024px){
+            header{
+                height: 120px;
+            }
+            
         }
 
         /* Botón de menú para móviles */
